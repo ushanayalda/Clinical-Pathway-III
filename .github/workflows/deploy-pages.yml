@@ -1,0 +1,82 @@
+name: Deploy Clinical Pathway site
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+  issues: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+        with:
+          enablement: true
+
+      - name: Build public artifact
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf _site
+          mkdir -p _site/assets/data/case-001
+          cp index.html app.js styles.css .nojekyll _site/
+          cp assets/data/library.json _site/assets/data/library.json
+          cp assets/data/case-001/station.json _site/assets/data/case-001/station.json
+          cp assets/data/case-001/review.json _site/assets/data/case-001/review.json
+          test ! -e _site/assets/data/case-001/governance.json
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        continue-on-error: true
+        uses: actions/deploy-pages@v4
+
+      - name: Report deployment
+        if: always()
+        uses: actions/github-script@v7
+        env:
+          DEPLOY_OUTCOME: ${{ steps.deployment.outcome }}
+          PAGE_URL: ${{ steps.deployment.outputs.page_url }}
+        with:
+          script: |
+            const ok = process.env.DEPLOY_OUTCOME === 'success';
+            const body = [
+              '## GitHub Pages deployment',
+              '',
+              `Status: **${ok ? 'SUCCESS' : 'FAILED'}**`,
+              ok ? `Live site: ${process.env.PAGE_URL}` : 'The deployment workflow did not complete successfully.',
+              '',
+              'Published artifact excludes internal governance, documentation and QA files.',
+              'Clinical release status remains HOLD.'
+            ].join('\n');
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: 1,
+              body
+            });
+
+      - name: Enforce deployment success
+        if: steps.deployment.outcome != 'success'
+        run: exit 1
