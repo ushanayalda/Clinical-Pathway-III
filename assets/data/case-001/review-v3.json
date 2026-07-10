@@ -1,0 +1,335 @@
+{
+  "version": 3,
+  "case_id": "case-001",
+  "title": "Clinical mastery Review",
+  "intro": "Rebuild the clinical road from memory, identify the decision threshold, and complete one spoken repair. Work through one stage at a time.",
+  "stage_order": [
+    "synthesis",
+    "question_answer_meaning",
+    "decision_threshold",
+    "patient_explanation",
+    "handover_drill",
+    "one_repair",
+    "next_action"
+  ],
+  "stages": [
+    {
+      "id": "synthesis",
+      "label": "Clinical synthesis",
+      "title": "Build the one-line problem representation",
+      "instruction": "Select the facts that deserve space in your first clinical sentence. Do not select every fact.",
+      "selection_target": 5,
+      "options": [
+        {
+          "id": "ongoing",
+          "text": "Ongoing central heavy pressure for about 30 minutes",
+          "essential": true
+        },
+        {
+          "id": "exertional",
+          "text": "Began with exertion",
+          "essential": true
+        },
+        {
+          "id": "autonomic",
+          "text": "Sweating and nausea",
+          "essential": true
+        },
+        {
+          "id": "radiation",
+          "text": "Radiation to left shoulder and jaw with breathlessness",
+          "essential": true
+        },
+        {
+          "id": "risk",
+          "text": "Multiple cardiovascular risk factors",
+          "essential": true
+        },
+        {
+          "id": "indigestion",
+          "text": "David used the word ‘indigestion’",
+          "essential": false
+        },
+        {
+          "id": "alert",
+          "text": "David remained alert",
+          "essential": false
+        },
+        {
+          "id": "wife",
+          "text": "David’s wife was nearby",
+          "essential": false
+        }
+      ],
+      "model": "Adult man with ongoing exertional central heavy chest pressure for about 30 minutes, associated with sweating, nausea, breathlessness and radiation to the left shoulder and jaw, on a background of significant cardiovascular risk.",
+      "teaching": "A problem representation is compressed clinical meaning. It prioritises time course, pattern, associated warning features and relevant risk. It does not repeat the consultation."
+    },
+    {
+      "id": "question_answer_meaning",
+      "label": "Question → answer → meaning",
+      "title": "Choose the question that earns the information",
+      "instruction": "For each patient answer, identify the single focused question that should have produced it. Then read why it matters.",
+      "items": [
+        {
+          "id": "qa1",
+          "answer": "Heavy central pressure, began while walking, ongoing for about 30 minutes.",
+          "options": [
+            "Can you tell me what the discomfort feels like and what you were doing when it began?",
+            "Have you ever been admitted to hospital?",
+            "Do you think this is stress?"
+          ],
+          "correct_index": 0,
+          "meaning": "This single open-but-focused question defines character, trigger, onset and persistence without firing several closed questions at the patient."
+        },
+        {
+          "id": "qa2",
+          "answer": "Sweating, nausea, breathlessness and spread to the left shoulder and jaw.",
+          "options": [
+            "Did you take an antacid?",
+            "When it started, did you notice sweating, nausea, breathlessness or the discomfort spreading anywhere?",
+            "Does anyone at work have similar symptoms?"
+          ],
+          "correct_index": 1,
+          "meaning": "Associated autonomic symptoms, dyspnoea and radiation convert an isolated symptom into a coherent high-risk pattern."
+        },
+        {
+          "id": "qa3",
+          "answer": "No abrupt maximal onset, tearing back pain or pleuritic quality.",
+          "options": [
+            "Was it sudden and maximal straight away, tearing through to your back, or worse on breathing in?",
+            "Have you changed your diet recently?",
+            "Do you get headaches?"
+          ],
+          "correct_index": 0,
+          "meaning": "This checks selected features of aortic and pleuropulmonary emergencies. Negative answers refine the differential but do not cancel the urgent coronary pattern."
+        },
+        {
+          "id": "qa4",
+          "answer": "Hypertension, hyperlipidaemia, smoking and premature family history.",
+          "options": [
+            "Tell me every illness you have ever had.",
+            "Do you have heart or circulation problems, diabetes, blood pressure or cholesterol treatment, smoking, or early heart disease in close relatives?",
+            "When did you last see a dentist?"
+          ],
+          "correct_index": 1,
+          "meaning": "A focused risk question changes pre-test probability and handover quality. It should not postpone action once the symptom threshold has already been crossed."
+        },
+        {
+          "id": "qa5",
+          "answer": "David asks for private transport instead of an ambulance.",
+          "options": [
+            "Why are you being difficult?",
+            "Would you prefer to ignore the risk?",
+            "I understand an ambulance feels disruptive. Can I explain why private travel is not safe in this situation?"
+          ],
+          "correct_index": 2,
+          "meaning": "Acknowledge the inconvenience, ask permission to explain, then connect ambulance transfer to the risk of deterioration and the need for monitoring and treatment."
+        }
+      ],
+      "summary": "Focused history is not a memorised checklist. Each question should earn information that defines the pattern, tests a dangerous alternative, changes risk, or supports immediate management."
+    },
+    {
+      "id": "decision_threshold",
+      "label": "Act before proof",
+      "title": "Find the earliest safe action point",
+      "instruction": "Select the point at which emergency management should begin. The question is not ‘When is the diagnosis proven?’ It is ‘When is delay no longer safe?’",
+      "options": [
+        {
+          "id": "after-label",
+          "label": "As soon as David says ‘indigestion’, before clarifying the symptom",
+          "correct": false,
+          "feedback": "The symptom must first be defined. A patient label alone is neither reassuring nor diagnostic."
+        },
+        {
+          "id": "after-pattern",
+          "label": "After ongoing exertional central pressure plus sweating, nausea, breathlessness and radiation are established",
+          "correct": true,
+          "feedback": "Correct. This pattern creates sufficient concern for a time-critical coronary syndrome. Start emergency management while continuing only the focused information needed for safety and handover."
+        },
+        {
+          "id": "after-risk",
+          "label": "Only after all cardiovascular risk factors have been collected",
+          "correct": false,
+          "feedback": "Risk factors strengthen probability but should not become a gate that delays action in a high-risk symptom pattern."
+        },
+        {
+          "id": "after-ecg",
+          "label": "Only after an ECG confirms the diagnosis",
+          "correct": false,
+          "feedback": "An ECG is important, but waiting for confirmation can be unsafe. Arrange emergency care and obtain the ECG only if it does not delay transfer."
+        }
+      ],
+      "action_sequence": [
+        "Pause the routine consultation and keep David under observation.",
+        "Call the practice nurse and begin immediate observations and focused assessment.",
+        "Arrange ambulance transfer under the local emergency pathway.",
+        "Do not permit driving or unsupported private travel.",
+        "Request an ECG without allowing it to delay transfer."
+      ],
+      "differential_lens": [
+        {
+          "condition": "Acute coronary syndrome",
+          "why_considered": "Ongoing exertional central pressure, autonomic symptoms, radiation, breathlessness and cardiovascular risk."
+        },
+        {
+          "condition": "Acute aortic syndrome",
+          "why_considered": "Ask about abrupt maximal onset, tearing quality, back radiation and neurological or perfusion symptoms. The absence of typical features does not replace clinical judgement."
+        },
+        {
+          "condition": "Pulmonary embolism or pneumothorax",
+          "why_considered": "Ask about sudden dyspnoea, pleuritic pain, haemoptysis, collapse and relevant risk context; examine for respiratory compromise."
+        },
+        {
+          "condition": "Gastro-oesophageal or musculoskeletal causes",
+          "why_considered": "These may be considered later, but a benign explanation must not be used to dismiss a high-risk pattern before dangerous causes are addressed."
+        }
+      ]
+    },
+    {
+      "id": "patient_explanation",
+      "label": "Patient explanation",
+      "title": "Open the explanation safely",
+      "instruction": "Choose the opening that best acknowledges David’s view, names the concern and links it to urgent action.",
+      "options": [
+        {
+          "id": "reassure",
+          "text": "It is probably indigestion, but we can send you to hospital just to be sure.",
+          "correct": false,
+          "feedback": "This falsely reassures and weakens the urgency of the plan."
+        },
+        {
+          "id": "alarm",
+          "text": "You are having a heart attack and you must do what I say.",
+          "correct": false,
+          "feedback": "This overstates diagnostic certainty and removes collaborative communication."
+        },
+        {
+          "id": "balanced",
+          "text": "I understand why this feels like indigestion. The pattern of pressure with sweating, nausea, breathlessness and spread to your jaw and shoulder could be coming from your heart, and I cannot safely rule that out here.",
+          "correct": true,
+          "feedback": "This acknowledges the patient’s interpretation, explains the pattern, preserves uncertainty and creates a clear reason for urgent action."
+        }
+      ],
+      "model_blocks": [
+        {
+          "label": "Acknowledge",
+          "text": "I understand why this feels like indigestion and why an ambulance feels disruptive."
+        },
+        {
+          "label": "Name the concern",
+          "text": "The pressure with sweating, nausea, breathlessness and spread to your jaw and shoulder could be coming from your heart."
+        },
+        {
+          "label": "Explain uncertainty",
+          "text": "I cannot safely rule out a serious heart problem in the clinic, even if the first observations or ECG are not dramatic."
+        },
+        {
+          "label": "State the action",
+          "text": "We need an ambulance, monitoring and urgent hospital assessment now."
+        },
+        {
+          "label": "Close the unsafe option",
+          "text": "It is not safe for you to drive or travel without medical support because you could deteriorate on the way."
+        }
+      ],
+      "spoken_instruction": "Say the five-part explanation aloud once in your own words. Keep it under 40 seconds."
+    },
+    {
+      "id": "handover_drill",
+      "label": "Handover drill",
+      "title": "Build a 30-second safety handover",
+      "instruction": "Reveal one cue at a time. After the fourth cue, deliver the full handover aloud without reading the model.",
+      "cues": [
+        {
+          "label": "Situation",
+          "text": "Who and where: adult man in general practice with ongoing central chest pressure for about 30 minutes."
+        },
+        {
+          "label": "Pattern",
+          "text": "Exertional onset; sweating, nausea, breathlessness; radiation to left shoulder and jaw."
+        },
+        {
+          "label": "Risk and current state",
+          "text": "Hypertension, hyperlipidaemia, smoking and premature family history; pale and clammy but alert."
+        },
+        {
+          "label": "Action requested",
+          "text": "Suspected acute coronary syndrome; emergency ambulance transfer, monitoring and no private driving."
+        }
+      ],
+      "model": "This is David, an adult man in our general practice with ongoing central heavy chest pressure for about 30 minutes, beginning with exertion and associated with sweating, nausea, breathlessness and radiation to his left shoulder and jaw. He has hypertension, hyperlipidaemia, smokes and has a family history of premature coronary disease. He is pale and clammy but alert. We are treating this as suspected acute coronary syndrome and request urgent ambulance transfer and ongoing monitoring.",
+      "completion_label": "I have delivered the handover aloud"
+    },
+    {
+      "id": "one_repair",
+      "label": "One repair",
+      "title": "Choose one repair for the next run",
+      "instruction": "Do not repair the whole station at once. Choose the single failure point that would most improve safety and fluency, then complete its spoken micro-drill.",
+      "options": [
+        {
+          "id": "question",
+          "label": "Ask one clean question at a time",
+          "diagnostic_prompt": "Choose this if you bundled several questions, lost the patient’s sequence or could not predict which answer your wording should produce.",
+          "micro_drill": "Say: ‘Can you tell me what the discomfort feels like and what you were doing when it began?’ Pause. Then say: ‘When it started, did you notice sweating, nausea, breathlessness or spread anywhere?’"
+        },
+        {
+          "id": "threshold",
+          "label": "Act when the pattern crosses the safety threshold",
+          "diagnostic_prompt": "Choose this if you continued gathering detail after the high-risk pattern was already clear or waited for the ECG before escalating.",
+          "micro_drill": "Say: ‘This pattern is high risk. I am stopping the routine consultation, calling the nurse and arranging ambulance transfer now. I will continue only the focused assessment needed for immediate care and handover.’"
+        },
+        {
+          "id": "explanation",
+          "label": "Explain concern without false certainty",
+          "diagnostic_prompt": "Choose this if your explanation was either vague and reassuring or overly definitive and alarming.",
+          "micro_drill": "Say: ‘I understand why this feels like indigestion. The combination of pressure, sweating, nausea, breathlessness and spread could be coming from your heart. I cannot safely rule that out here, so we need urgent ambulance assessment.’"
+        },
+        {
+          "id": "resistance",
+          "label": "Close the private-car option calmly",
+          "diagnostic_prompt": "Choose this if you accepted private transport, repeated ‘it is policy’, or argued without explaining the specific risk.",
+          "micro_drill": "Say: ‘I understand an ambulance feels disruptive. The risk is that you could worsen on the way. The ambulance team can monitor and treat you immediately; a private car cannot. It is not safe for you to drive or be driven without that support.’"
+        },
+        {
+          "id": "handover",
+          "label": "Compress the handover",
+          "diagnostic_prompt": "Choose this if your handover repeated the whole history or omitted the action being requested.",
+          "micro_drill": "Deliver four sentences only: situation, symptom pattern, risk/current state, and requested emergency action."
+        }
+      ],
+      "completion_label": "I completed this spoken repair"
+    },
+    {
+      "id": "next_action",
+      "label": "Next action",
+      "title": "Choose the next useful move",
+      "instruction": "Use the repair you selected to decide what happens next. This is a professional practice plan, not a score.",
+      "options": [
+        {
+          "id": "clean_retry",
+          "label": "Run Station 001 again with the repair as the only focus",
+          "detail": "Best when the consultation road is understood but needs fluency under time pressure."
+        },
+        {
+          "id": "road_rehearsal",
+          "label": "Rehearse the consultation road once, then retry",
+          "detail": "Best when question order or the action threshold still feels unstable."
+        },
+        {
+          "id": "handover_repetition",
+          "label": "Repeat the explanation and handover twice before retrying",
+          "detail": "Best when the history is safe but communication remains slow or diffuse."
+        }
+      ],
+      "completion_label": "Complete Review"
+    }
+  ],
+  "boundaries": {
+    "clinical_release": "hold",
+    "source_review": "hold",
+    "medication_content": "hold",
+    "audio": false,
+    "voice_scoring": false,
+    "typing_required": false
+  }
+}
