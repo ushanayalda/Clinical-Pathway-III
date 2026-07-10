@@ -1,0 +1,224 @@
+{
+  "version": 3,
+  "case_id": "case-001",
+  "station_number": "001",
+  "title": "Acute chest discomfort in general practice",
+  "time_minutes": 8,
+  "station_card": {
+    "context_label": "GENERAL PRACTICE CONSULTATION",
+    "time_label": "8 MINUTES",
+    "heading": "Candidate Information",
+    "candidate_information": [
+      "You are a general practitioner working in a community medical clinic.",
+      "David, an adult man, has presented today with central chest discomfort. At reception he described the sensation as ‘indigestion’.",
+      "David is currently seated in the consultation room. A practice nurse and emergency equipment are immediately available.",
+      "You are not required to physically examine David. State the observations, focused examination and immediate tests you would request."
+    ],
+    "tasks_heading": "Tasks",
+    "tasks": [
+      "Take a focused history to assess the nature and immediate risk of David’s chest discomfort.",
+      "Explain your clinical concern and the immediate management plan to David.",
+      "Respond to David’s questions or resistance, then provide a concise focused handover."
+    ],
+    "candidate_note": "Speak to David as you would in the consultation. Ask one question at a time. The station ends when you select Finish station."
+  },
+  "reading_time_plan": {
+    "label": "20-second reading scan",
+    "items": [
+      "Setting: general practice, not an emergency department.",
+      "Problem language: chest discomfort described as indigestion.",
+      "Outputs: focused history, immediate plan, patient response, handover.",
+      "Safety rule: decide when you must act before diagnostic certainty."
+    ]
+  },
+  "opening": {
+    "speaker": "David",
+    "text": "Doctor, I’ve had this uncomfortable feeling across the middle of my chest. I thought it was indigestion, but it isn’t settling.",
+    "orientation": "The patient has given a symptom and a label. Your first job is to define the symptom in his words rather than accept the label."
+  },
+  "consultation_road": [
+    {
+      "id": "define",
+      "label": "Define the symptom"
+    },
+    {
+      "id": "associated",
+      "label": "Find linked warning features"
+    },
+    {
+      "id": "alternatives",
+      "label": "Check dangerous alternatives"
+    },
+    {
+      "id": "risk",
+      "label": "Establish background risk"
+    },
+    {
+      "id": "threshold",
+      "label": "Act before certainty"
+    },
+    {
+      "id": "assessment",
+      "label": "Request immediate assessment"
+    },
+    {
+      "id": "explain",
+      "label": "Explain the concern"
+    },
+    {
+      "id": "plan",
+      "label": "Discuss the plan"
+    },
+    {
+      "id": "resistance",
+      "label": "Manage resistance"
+    },
+    {
+      "id": "handover",
+      "label": "Give a focused handover"
+    }
+  ],
+  "consultation_steps": [
+    {
+      "id": "define",
+      "type": "question",
+      "phase": "Define the symptom",
+      "intent": "Clarify onset, character and course without asking several questions at once.",
+      "say_aloud": "Can you tell me what the discomfort feels like and what you were doing when it began?",
+      "patient_response": "It feels like a heavy pressure in the centre of my chest. It started about half an hour ago while I was walking from the car park, and it has stayed there.",
+      "what_it_adds": "Central pressure, exertional onset, prolonged duration and persistence.",
+      "clinical_meaning": "The word ‘indigestion’ no longer lowers concern. The symptom pattern must drive the assessment.",
+      "log_label": "Symptom definition"
+    },
+    {
+      "id": "associated",
+      "type": "question",
+      "phase": "Find linked warning features",
+      "intent": "Ask for associated symptoms that change urgency.",
+      "say_aloud": "When the pressure started, did you notice anything else such as sweating, nausea, breathlessness or pain spreading anywhere?",
+      "patient_response": "I felt sweaty and a bit sick. I was short of breath, and the discomfort seemed to move into my left shoulder and jaw.",
+      "what_it_adds": "Autonomic symptoms, breathlessness and radiation.",
+      "clinical_meaning": "Several linked features now form a coherent high-risk pattern. Do not let a reassuring label outweigh the pattern.",
+      "log_label": "Associated warning features"
+    },
+    {
+      "id": "alternatives",
+      "type": "question",
+      "phase": "Check dangerous alternatives",
+      "intent": "Use one focused question to look for features that would redirect immediate management.",
+      "say_aloud": "Was the onset sudden and maximal straight away, does it tear through to your back, or is it worse when you breathe in?",
+      "patient_response": "No. It built over a few minutes. It does not go through to my back and breathing in does not make it sharper.",
+      "what_it_adds": "No abrupt tearing onset, back radiation or pleuritic quality.",
+      "clinical_meaning": "This makes some dangerous alternatives less typical, but it does not make David safe or remove the need for urgent action.",
+      "log_label": "Dangerous alternative screen"
+    },
+    {
+      "id": "risk",
+      "type": "question",
+      "phase": "Establish background risk",
+      "intent": "Ask only for background information that changes pre-test risk or immediate care.",
+      "say_aloud": "Do you have heart or circulation problems, diabetes, high blood pressure, high cholesterol, a smoking history, or close relatives with early heart disease?",
+      "patient_response": "I take tablets for blood pressure and cholesterol. I still smoke most days. My father had a heart attack in his fifties.",
+      "what_it_adds": "Multiple cardiovascular risk factors and relevant family history.",
+      "clinical_meaning": "Background risk strengthens the concern already created by the symptom pattern. It is supporting evidence, not the reason to delay action.",
+      "log_label": "Cardiovascular risk"
+    },
+    {
+      "id": "threshold",
+      "type": "action_checkpoint",
+      "phase": "Act before certainty",
+      "intent": "Stop information gathering long enough to state the safety action the pattern now requires.",
+      "say_aloud": "State your immediate action now, before requesting more history or waiting for a test result.",
+      "action_button": "I have stated my immediate action",
+      "model_action": [
+        "Stop the routine consultation and keep David seated or reclined under observation.",
+        "Ask the practice nurse for immediate observations and emergency support.",
+        "Arrange emergency ambulance transfer for suspected acute coronary syndrome, following local emergency protocol.",
+        "Do not allow David to drive or leave by private car.",
+        "Obtain an ECG only if it is immediately available and does not delay transfer or emergency care."
+      ],
+      "clinical_meaning": "A dangerous pattern is enough to trigger emergency management. Diagnostic certainty, a normal appearance or a pending ECG must not become a delay mechanism.",
+      "log_label": "Immediate safety action"
+    },
+    {
+      "id": "assessment",
+      "type": "assessment_request",
+      "phase": "Request immediate assessment",
+      "intent": "Verbalise a focused assessment that supports safety and handover rather than a complete routine examination.",
+      "say_aloud": "State the immediate observations, focused examination and test you would request while emergency transfer is being arranged.",
+      "action_button": "I have requested the focused assessment",
+      "requested_assessment": [
+        "Airway, breathing and circulation appearance; level of distress; pulse, blood pressure, respiratory rate, oxygen saturation and temperature.",
+        "Focused cardiovascular and respiratory examination for haemodynamic compromise, heart failure or another immediately apparent cause.",
+        "A 12-lead ECG as soon as available, without delaying ambulance transfer."
+      ],
+      "available_findings": "David looks pale and clammy but remains alert and able to speak. There is no obvious severe respiratory distress or circulatory collapse. These observations do not remove the high-risk concern.",
+      "clinical_meaning": "Stable observations do not rule out a time-critical coronary event. Use them to guide immediate support and handover, not to downgrade the symptom pattern.",
+      "log_label": "Focused immediate assessment"
+    },
+    {
+      "id": "explain",
+      "type": "spoken_checkpoint",
+      "phase": "Explain the concern",
+      "intent": "Give David a brief explanation before listing logistics.",
+      "say_aloud": "Explain what concerns you, what you cannot safely exclude here, and why the next step is urgent.",
+      "action_button": "I have explained my concern",
+      "model_speech": "David, I know this feels like indigestion, but the pressure in the centre of your chest together with the sweating, nausea, breathlessness and spread to your jaw and shoulder could be coming from your heart. I cannot safely rule that out in the clinic, so we need to treat this as urgent.",
+      "clinical_meaning": "Name the pattern, acknowledge the patient’s interpretation, explain uncertainty honestly and connect urgency to safety.",
+      "log_label": "Clinical explanation"
+    },
+    {
+      "id": "plan",
+      "type": "plan_gate",
+      "phase": "Discuss the plan",
+      "intent": "State the immediate management plan aloud before seeing David’s response.",
+      "say_aloud": "Discuss the ambulance transfer, monitoring, immediate clinic support and the instruction not to drive.",
+      "gate_button": "I have discussed my plan",
+      "response_label": "Response to your plan",
+      "patient_response": "An ambulance sounds a bit much. My wife is nearby. Couldn’t she just drive me to hospital?",
+      "clinical_meaning": "The patient has not yet accepted the safest plan. Your next task is to respond to the reason for resistance without weakening the safety message.",
+      "log_label": "Plan and patient response"
+    },
+    {
+      "id": "resistance",
+      "type": "question",
+      "phase": "Manage resistance",
+      "intent": "Acknowledge the inconvenience, explain the specific risk, and confirm the safe plan.",
+      "say_aloud": "Respond to David’s request to travel by private car.",
+      "patient_response": "All right. When you put it that way, I understand. Please call the ambulance and let my wife know what is happening.",
+      "what_it_adds": "David accepts emergency transfer after a clear risk explanation.",
+      "clinical_meaning": "Effective risk communication is calm and specific: deterioration can occur during travel, monitoring and treatment may be needed, and driving is unsafe.",
+      "suggested_response": "I understand that an ambulance feels disruptive. The reason I am recommending it is that this could worsen suddenly on the way. The ambulance team can monitor and treat you immediately, while a private car cannot. I do not think it is safe for you to drive or be driven without that support.",
+      "log_label": "Resistance managed"
+    },
+    {
+      "id": "handover",
+      "type": "handover",
+      "phase": "Give a focused handover",
+      "intent": "Compress the case into a 30-second safety handover.",
+      "say_aloud": "Give a focused handover using situation, key symptom pattern, relevant risk, current condition and requested action.",
+      "action_button": "I have given my handover",
+      "handover_cues": [
+        "Situation: adult man in general practice with ongoing central chest pressure for about 30 minutes.",
+        "Pattern: exertional onset with sweating, nausea, breathlessness and radiation to left shoulder and jaw.",
+        "Risk: hypertension, hyperlipidaemia, current smoking and family history of premature coronary disease.",
+        "Current state and action: pale and clammy but alert; emergency transfer requested for suspected acute coronary syndrome; no private driving."
+      ],
+      "model_handover": "This is David, an adult man in our general practice with ongoing central heavy chest pressure for about 30 minutes, beginning with exertion and associated with sweating, nausea, breathlessness and radiation to his left shoulder and jaw. He has hypertension, hyperlipidaemia, smokes and has a family history of premature coronary disease. He is pale and clammy but alert, without obvious collapse. We are treating this as suspected acute coronary syndrome and request urgent ambulance transfer and ongoing monitoring.",
+      "clinical_meaning": "A useful handover contains the pattern, risk, current state and required action. It does not repeat the whole consultation.",
+      "log_label": "Focused handover"
+    }
+  ],
+  "finish_action": {
+    "button_label": "Finish station",
+    "confirmation_title": "Finish and lock this attempt?",
+    "confirmation_text": "Finishing prevents further reveals and unlocks the clinical mastery Review."
+  },
+  "boundaries": {
+    "medication_content": "hold",
+    "audio": false,
+    "voice_scoring": false,
+    "typing_required": false,
+    "clinical_release": "hold"
+  }
+}

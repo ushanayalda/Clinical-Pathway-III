@@ -1,58 +1,26 @@
-name: Case 001 validation
+name: Case 001 clinical mastery validation
 
 on:
-  push:
-    branches:
-      - build/case-001-authority-v2
   pull_request:
     branches: [main]
   workflow_dispatch:
 
 permissions:
   contents: read
-  issues: write
-  pull-requests: write
 
 jobs:
   audit:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: 22
+          cache: npm
       - run: npm install
       - run: npx playwright install --with-deps chromium
-      - id: static
-        continue-on-error: true
+      - name: Mechanical and data-contract audits
         run: npm test
-      - id: browser
-        continue-on-error: true
+      - name: Desktop, mobile, accessibility and product simulation
         run: npm run audit:browser
-      - name: Report results to draft PR
-        if: always()
-        uses: actions/github-script@v7
-        with:
-          script: |
-            const staticOutcome = '${{ steps.static.outcome }}';
-            const browserOutcome = '${{ steps.browser.outcome }}';
-            const head = context.sha.slice(0, 12);
-            const body = [
-              '## Automated validation',
-              '',
-              `Commit: \`${head}\``,
-              `- Mechanical and no-drift audit: **${staticOutcome.toUpperCase()}**`,
-              `- Desktop and mobile browser audit: **${browserOutcome.toUpperCase()}**`,
-              '',
-              'Clinical release remains HOLD.'
-            ].join('\n');
-            await github.rest.issues.createComment({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              issue_number: 1,
-              body
-            });
-      - name: Enforce audit success
-        if: steps.static.outcome != 'success' || steps.browser.outcome != 'success'
-        run: exit 1

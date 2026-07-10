@@ -1,0 +1,21 @@
+{
+  "case_id": "case-001",
+  "implementation_version": 3,
+  "source_authority": "Clinical Pathway Authority Pack v2",
+  "clinical_release": "HOLD",
+  "source_review": "HOLD",
+  "medication_content": "HOLD",
+  "audio_release": "HOLD",
+  "product_release": "HOLD",
+  "learner_delivery": {
+    "case_002": false,
+    "audio": false,
+    "voice_scoring": false,
+    "typing_required": false,
+    "gamification": false,
+    "learner_facing_governance": false,
+    "learner_facing_amc_branding": false,
+    "learner_facing_adhd_label": false
+  },
+  "design_position": "The learner-facing flow externalises working memory through one clinical task at a time, but does not expose diagnostic or governance labels about the learner."
+}

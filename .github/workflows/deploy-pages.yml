@@ -3,120 +3,46 @@ name: Deploy Clinical Pathway site
 on:
   push:
     branches: [main]
-  pull_request:
-    branches: [main]
-    paths:
-      - .github/workflows/deploy-pages.yml
   workflow_dispatch:
 
 permissions:
   contents: read
   pages: write
   id-token: write
-  issues: write
-  pull-requests: write
 
 concurrency:
-  group: pages-${{ github.event_name }}
+  group: pages
   cancel-in-progress: false
 
 jobs:
-  probe:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Confirm workflow execution
-        uses: actions/github-script@v7
-        with:
-          script: |
-            const issueNumber = context.issue.number || 5;
-            const eventLabel = context.eventName === 'pull_request' ? 'deployment workflow verified on pull request' : 'GitHub Pages deployment started';
-            await github.rest.issues.createComment({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              issue_number: issueNumber,
-              body: `## ${eventLabel}\n\nCommit: \`${context.sha.slice(0, 12)}\``
-            });
-
   deploy:
-    if: github.event_name != 'pull_request'
-    needs: probe
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     timeout-minutes: 10
-    outputs:
-      build_outcome: ${{ steps.build.outcome }}
-      upload_outcome: ${{ steps.upload.outcome }}
-      deployment_outcome: ${{ steps.deployment.outcome }}
-      page_url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
 
-      - name: Build public artifact
-        id: build
-        continue-on-error: true
+      - name: Build learner-facing artifact
         shell: bash
         run: |
           set -euo pipefail
           rm -rf _site
           mkdir -p _site/assets/data/case-001
-          cp index.html app.js styles.css .nojekyll _site/
-          cp assets/data/library.json _site/assets/data/library.json
-          cp assets/data/case-001/station.json _site/assets/data/case-001/station.json
-          cp assets/data/case-001/review.json _site/assets/data/case-001/review.json
-          test ! -e _site/assets/data/case-001/governance.json
+          cp index.html app.js styles.css styles-v3.css .nojekyll _site/
+          cp assets/data/library-v3.json _site/assets/data/library-v3.json
+          cp assets/data/case-001/station-v3.json _site/assets/data/case-001/station-v3.json
+          cp assets/data/case-001/review-v3.json _site/assets/data/case-001/review-v3.json
+          test ! -e _site/assets/data/case-001/governance-v3.json
+          test ! -e _site/qa
+          test ! -e _site/docs
 
       - name: Upload Pages artifact
-        id: upload
-        if: always() && steps.build.outcome == 'success'
-        continue-on-error: true
         uses: actions/upload-pages-artifact@v3
         with:
           path: _site
 
       - name: Deploy to GitHub Pages
         id: deployment
-        if: always() && steps.upload.outcome == 'success'
-        continue-on-error: true
         uses: actions/deploy-pages@v4
-
-      - name: Enforce deployment success
-        if: always() && (steps.build.outcome != 'success' || steps.upload.outcome != 'success' || steps.deployment.outcome != 'success')
-        run: exit 1
-
-  report:
-    if: always() && github.event_name != 'pull_request'
-    needs: [probe, deploy]
-    runs-on: ubuntu-latest
-    steps:
-      - name: Report deployment result
-        uses: actions/github-script@v7
-        env:
-          DEPLOY_RESULT: ${{ needs.deploy.result }}
-          BUILD_OUTCOME: ${{ needs.deploy.outputs.build_outcome }}
-          UPLOAD_OUTCOME: ${{ needs.deploy.outputs.upload_outcome }}
-          DEPLOYMENT_OUTCOME: ${{ needs.deploy.outputs.deployment_outcome }}
-          PAGE_URL: ${{ needs.deploy.outputs.page_url }}
-        with:
-          script: |
-            const ok = process.env.DEPLOY_RESULT === 'success';
-            const body = [
-              '## GitHub Pages deployment',
-              '',
-              `Status: **${ok ? 'SUCCESS' : process.env.DEPLOY_RESULT.toUpperCase()}**`,
-              `- Build public artifact: **${(process.env.BUILD_OUTCOME || 'not-run').toUpperCase()}**`,
-              `- Upload Pages artifact: **${(process.env.UPLOAD_OUTCOME || 'not-run').toUpperCase()}**`,
-              `- Deploy to Pages: **${(process.env.DEPLOYMENT_OUTCOME || 'not-run').toUpperCase()}**`,
-              '',
-              ok ? `Live site: ${process.env.PAGE_URL}` : 'The failed stage is identified above.',
-              '',
-              'The public artifact excludes internal governance, documentation and QA files.',
-              'Clinical release remains HOLD.'
-            ].join('\n');
-            await github.rest.issues.createComment({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              issue_number: 5,
-              body
-            });

@@ -1,18 +1,20 @@
 {
   "name": "clinical-pathway-case-001",
-  "version": "0.1.0",
+  "version": "0.3.0",
   "private": true,
-  "description": "Static Case 001 Clinical Pathway prototype for GitHub Pages.",
+  "description": "Static Case 001 clinical mastery prototype for GitHub Pages.",
   "scripts": {
     "serve": "python3 -m http.server 4173",
-    "test": "node qa/static-audit.mjs",
-    "audit:browser": "node qa/browser-audit.mjs",
+    "audit:static": "node qa/static-audit-v3.mjs",
+    "audit:data": "node qa/data-contract-audit-v3.mjs",
+    "test": "npm run audit:static && npm run audit:data",
+    "audit:browser": "node qa/browser-audit-v3.mjs",
     "audit": "npm test && npm run audit:browser"
-  },
-  "devDependencies": {
-    "playwright": "^1.55.0"
   },
   "engines": {
     "node": ">=20"
+  },
+  "devDependencies": {
+    "playwright": "^1.53.2"
   }
 }
