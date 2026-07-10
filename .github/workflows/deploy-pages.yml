@@ -58,8 +58,6 @@ jobs:
         id: configure
         continue-on-error: true
         uses: actions/configure-pages@v5
-        with:
-          enablement: true
 
       - name: Build public artifact
         id: build
