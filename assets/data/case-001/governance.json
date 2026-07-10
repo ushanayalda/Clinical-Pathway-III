@@ -1,0 +1,10 @@
+{
+  "case_id": "CP-C001",
+  "source_status": "hold",
+  "clinical_status": "hold",
+  "renderer_status": "prototype_validated",
+  "accessibility_status": "prototype_validated",
+  "audio_release_status": "hold",
+  "release_status": "hold",
+  "last_human_reviewer": null
+}
