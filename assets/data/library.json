@@ -1,0 +1,52 @@
+{
+  "phases": [
+    {
+      "id": "phase-1",
+      "number": "1",
+      "title": "Keep the patient safe",
+      "confidence_target": "I can keep the patient safe.",
+      "status": "active",
+      "patterns": [
+        {
+          "id": "chest-pain",
+          "title": "Chest pain",
+          "training_focus": "Make safe decisions when the first explanation may be misleading.",
+          "stations": [
+            {
+              "case_id": "CP-C001",
+              "station_number": "001",
+              "title": "Chest discomfort after lunch",
+              "station_type": "Patient consultation",
+              "status": "available",
+              "recommended_action": "Start or continue the station"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "phase-2",
+      "number": "2",
+      "title": "Handle overlap and uncertainty",
+      "confidence_target": "I can compare important possibilities without freezing.",
+      "status": "pathway_preview",
+      "patterns": []
+    },
+    {
+      "id": "phase-3",
+      "number": "3",
+      "title": "Communicate safely under pressure",
+      "confidence_target": "I can communicate safely when risk, emotion or conflict appears.",
+      "status": "pathway_preview",
+      "patterns": []
+    },
+    {
+      "id": "phase-4",
+      "number": "4",
+      "title": "Perform, observe and present",
+      "confidence_target": "I can perform clearly, identify findings and present them.",
+      "status": "pathway_preview",
+      "patterns": []
+    }
+  ]
+}
