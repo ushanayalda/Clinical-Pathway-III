@@ -1,0 +1,82 @@
+{
+  "case_id": "CP-C001",
+  "mode": "blind_station",
+  "station_card": {
+    "station_number": "001",
+    "title": "Chest discomfort after lunch in a 58-year-old man",
+    "heading": "CANDIDATE INFORMATION AND TASKS",
+    "candidate_information": [
+      "You are working in a general practice clinic.",
+      "Your next patient is David Nguyen, aged 58 years.",
+      "He has come in because of chest discomfort that started after lunch."
+    ],
+    "tasks_heading": "YOUR TASKS ARE TO:",
+    "tasks": [
+      "Take a concise, relevant and focused history.",
+      "Ask the examiner for any examination findings or observations you require.",
+      "Explain your likely concerns to the patient.",
+      "Discuss your management plan."
+    ]
+  },
+  "reading_time_plan": {
+    "label": "Reading focus",
+    "items": [
+      "Identify the setting, recipient and four tasks.",
+      "Plan a focused chest pain history before you enter.",
+      "Decide which observations or examination findings you may request.",
+      "Leave time to explain your concern and management plan.",
+      "Do not assume the timing after lunch explains the symptoms."
+    ]
+  },
+  "opening_line": {
+    "speaker": "David",
+    "text": "Doctor, I think it is just indigestion, but my chest feels really tight."
+  },
+  "reveal_actions": [
+    {
+      "id": "pain_story",
+      "label": "Pain story",
+      "speaker": "David",
+      "response": "It started 45 minutes ago while I was carrying boxes. It is in the centre of my chest, heavy and tight, 8 out of 10. It goes into my left arm and jaw and it is not settling."
+    },
+    {
+      "id": "associated_symptoms",
+      "label": "Associated symptoms",
+      "speaker": "David",
+      "response": "I feel sweaty, sick and short of breath. I am scared."
+    },
+    {
+      "id": "risk_factors",
+      "label": "Risk factors",
+      "speaker": "David",
+      "response": "I smoke. I have high blood pressure and high cholesterol. My father had a heart attack."
+    },
+    {
+      "id": "ideas_concerns",
+      "label": "Ideas and concerns",
+      "speaker": "David",
+      "response": "I thought it was indigestion because it started after lunch. I am worried about missing work."
+    },
+    {
+      "id": "observations_examination",
+      "label": "Observations and examination",
+      "speaker": "Examiner",
+      "response": "David looks pale and sweaty. Heart rate 104, blood pressure 155/92, respiratory rate 22, oxygen saturation 95% on room air, temperature 36.8 °C and pain 8/10. His chest is clear. There is no new murmur and no calf swelling. Troponin is not available quickly enough for safe clinic management."
+    }
+  ],
+  "plan_gate": {
+    "button_label": "I have discussed my plan",
+    "unlocks": "response_to_plan",
+    "response_action": {
+      "id": "response_to_plan",
+      "label": "Response to your plan",
+      "speaker": "David",
+      "response": "An ambulance? Can I just drive myself? Is it really that serious?"
+    }
+  },
+  "finish_action": {
+    "button_label": "Finish station",
+    "confirmation_title": "Finish and lock this attempt?",
+    "confirmation_text": "You will not be able to reveal more information in this attempt. Review will unlock after you finish."
+  }
+}
