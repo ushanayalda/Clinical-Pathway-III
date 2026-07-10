@@ -1,0 +1,36 @@
+{
+  "version": 3,
+  "phases": [
+    {
+      "number": 1,
+      "title": "Keep the patient safe",
+      "confidence_target": "Recognise a time-critical pattern, act before certainty, and communicate the reason clearly.",
+      "status": "active",
+      "patterns": [
+        {
+          "id": "acute-chest-discomfort",
+          "title": "Acute chest discomfort",
+          "patient_language": [
+            "pain",
+            "pressure",
+            "tightness",
+            "heaviness",
+            "discomfort",
+            "indigestion"
+          ],
+          "training_focus": "Build a focused consultation from the patient's words, identify the point at which safety action is required, and explain the plan without delay.",
+          "stations": [
+            {
+              "id": "case-001",
+              "station_number": "001",
+              "title": "David: acute chest discomfort in general practice",
+              "station_type": "Focused history, immediate management and communication",
+              "availability": "active",
+              "answer_safety": "The Library describes the training position only. Patient responses and clinical teaching remain inside Station and Review."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
