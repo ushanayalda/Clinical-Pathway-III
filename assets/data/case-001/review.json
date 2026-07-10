@@ -1,0 +1,120 @@
+{
+  "case_id": "CP-C001",
+  "mode": "review_mode",
+  "unlock_rule": "attempt_finished",
+  "stage_order": [
+    "self_check",
+    "safety_mirror",
+    "what_changed",
+    "safe_version",
+    "thinking_traps",
+    "what_if_paths",
+    "try_again",
+    "confidence_after_review"
+  ],
+  "stages": [
+    {
+      "id": "self_check",
+      "label": "Self-check",
+      "intro": "Mark what you actually said or did. This is your reflection, not an official score.",
+      "items": [
+        {"id": "focused_history", "text": "I asked a concise, focused pain history."},
+        {"id": "associated_risk", "text": "I asked about associated symptoms and cardiovascular risk factors."},
+        {"id": "act_before_proof", "text": "I acted on the concerning pattern without waiting for clinic proof."},
+        {"id": "ambulance_no_driving", "text": "I discussed urgent ambulance transfer and made clear that David should not drive."},
+        {"id": "monitor_handover", "text": "I kept David resting, requested observations and prepared a focused handover."}
+      ],
+      "choices": ["Yes", "Partly", "Not yet"]
+    },
+    {
+      "id": "safety_mirror",
+      "label": "Safety mirror",
+      "intro": "Choose the description closest to your run. The mirror is based on your own recall.",
+      "profiles": [
+        {"id": "likely_safe", "label": "Likely safe", "text": "You recognised the concerning pattern, arranged urgent ambulance transfer without waiting for proof, clearly said no driving, and continued focused assessment while transfer was underway."},
+        {"id": "borderline", "label": "Borderline", "text": "You expressed concern but delayed transfer for clinic tests, left the driving plan unclear, or did not make the urgency explicit."},
+        {"id": "likely_unsafe", "label": "Likely unsafe", "text": "You treated the symptoms as indigestion, allowed private driving, or waited for clinic testing before arranging emergency transfer."}
+      ]
+    },
+    {
+      "id": "what_changed",
+      "label": "What changed",
+      "intro": "The road changed as new information appeared.",
+      "checkpoints": [
+        {"step": "First impression", "text": "Symptoms after lunch could tempt an indigestion explanation, but heart danger remained active."},
+        {"step": "Pain story", "text": "Central heavy, tight pain on exertion, radiating to the left arm and jaw and not settling made the benign explanation unsafe."},
+        {"step": "Associated symptoms", "text": "Sweating, nausea and breathlessness increased concern and supported escalation before certainty."},
+        {"step": "Plan response", "text": "David's wish to drive introduced a new immediate safety issue."},
+        {"step": "Observations", "text": "Pallor, sweating, tachycardia and ongoing severe pain did not support clinic observation as the safe path."}
+      ],
+      "logic_prompt": "Diagnosis is not proved. The risk is enough to act now."
+    },
+    {
+      "id": "safe_version",
+      "label": "Safe version",
+      "intro": "Use this as a spoken model after the blind attempt.",
+      "model_speech": "David, although this started after lunch, the heavy central pain going to your arm and jaw, together with sweating, nausea and shortness of breath, could be heart-related. I cannot safely rule that out here. I am arranging an ambulance now. Please do not drive. Stay resting while we check your observations and prepare a handover. We will not delay transfer for clinic tests.",
+      "safe_sequence": [
+        "Acknowledge David's indigestion belief without accepting it as the diagnosis.",
+        "Ask focused pain, associated symptom and risk-factor questions.",
+        "Arrange an ambulance while continuing the focused assessment.",
+        "State clearly that David must not drive.",
+        "Keep him resting, request observations and prepare a concise handover."
+      ],
+      "recovery_sentence": "Initially I considered indigestion because it started after lunch. However, the pain going to your arm and jaw, sweating, breathlessness, and the fact it is not settling make me more concerned about your heart, so I need to change direction and arrange an ambulance now.",
+      "handover": "David Nguyen, 58, has had 45 minutes of central heavy tight chest pain that began while carrying boxes. It radiates to his left arm and jaw and is associated with sweating, nausea and breathlessness. He smokes and has hypertension, high cholesterol and a family history of heart attack. He is pale and sweaty, heart rate 104, blood pressure 155/92, respiratory rate 22, oxygen saturation 95% on room air and pain 8/10. I am concerned about heart-related chest pain. An ambulance has been arranged and he has been told not to drive."
+    },
+    {
+      "id": "thinking_traps",
+      "label": "Thinking traps",
+      "intro": "Name the trap so you can change direction earlier next time.",
+      "traps": [
+        {"title": "Indigestion anchor", "text": "Letting the timing after lunch close the diagnosis before the pain story is heard."},
+        {"title": "Waiting for proof", "text": "Delaying emergency transfer until clinic blood tests or an ECG appear reassuring."},
+        {"title": "Unsafe transport", "text": "Allowing David to drive because he feels able to do so."},
+        {"title": "History before safety", "text": "Continuing a long history after the concerning pattern is already clear instead of escalating while assessment continues."}
+      ]
+    },
+    {
+      "id": "what_if_paths",
+      "label": "What-if paths",
+      "intro": "Open one variation at a time and say your response aloud before revealing the path.",
+      "paths": [
+        {"id": "insists_driving", "prompt": "David says he will drive himself.", "response": "Explain that possible heart-related chest pain can worsen suddenly, make clear that he should not drive, and keep the ambulance plan."},
+        {"id": "reassuring_ecg", "prompt": "An early ECG appears reassuring.", "response": "Do not let one early test make ongoing concerning chest pain safe for clinic management. Continue transfer without waiting."},
+        {"id": "started_wrong", "prompt": "You began by treating this as indigestion.", "response": "Use the recovery sentence, name what changed, and move immediately to the urgent transfer path."},
+        {"id": "work_pressure", "prompt": "David is worried about missing work.", "response": "Acknowledge the concern, explain the immediate safety risk plainly, and keep urgent assessment as the priority."}
+      ]
+    },
+    {
+      "id": "try_again",
+      "label": "Try again",
+      "intro": "Choose one weak segment to repair before the next full attempt.",
+      "repair_options": [
+        {"id": "danger_recognition", "label": "Recognise the danger pattern", "task": "Practise the moment you move from focused history to urgent escalation."},
+        {"id": "ambulance_no_driving", "label": "Explain ambulance and no driving", "task": "Practise a clear, calm explanation of urgency and safe transport."},
+        {"id": "focused_handover", "label": "Deliver a focused handover", "task": "Practise the concise summary of duration, pain, radiation, symptoms, risk factors, observations and action."}
+      ],
+      "practice_ladder": [
+        "Read the safe version.",
+        "Read it again with the logic checkpoints.",
+        "Speak after each model line.",
+        "Use cue cards only.",
+        "Run the station with time pressure.",
+        "Practise David's driving challenge.",
+        "Retry the weak segment.",
+        "Reattempt the full station later."
+      ]
+    },
+    {
+      "id": "confidence_after_review",
+      "label": "Confidence after review",
+      "intro": "How familiar does this pathway feel now?",
+      "choices": [
+        {"id": "unfamiliar", "label": "Still unfamiliar"},
+        {"id": "more_familiar", "label": "More familiar"},
+        {"id": "ready_to_retry", "label": "Ready to retry"}
+      ]
+    }
+  ]
+}
