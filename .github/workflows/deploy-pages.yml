@@ -28,7 +28,7 @@ jobs:
         uses: actions/github-script@v7
         with:
           script: |
-            const issueNumber = context.issue.number || 1;
+            const issueNumber = context.issue.number || 5;
             const eventLabel = context.eventName === 'pull_request' ? 'deployment workflow verified on pull request' : 'GitHub Pages deployment started';
             await github.rest.issues.createComment({
               owner: context.repo.owner,
@@ -117,6 +117,6 @@ jobs:
             await github.rest.issues.createComment({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              issue_number: 1,
+              issue_number: 5,
               body
             });
